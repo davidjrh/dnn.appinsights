@@ -10,4 +10,4 @@ This module is a DNN Platorm extension to integrate Visual Studio Application In
 3. Now from the Releases folder https://github.com/davidjrh/dnn.appinsights/tree/master/Releases, download the latest module package version ending on "...Install.zip" (the Source.zip package contains the source code that is not needed for production websites). 
 4. Install the extension package in your DNN instance from the "Host>Extensions" menu like any other module
 5. Once installed, a new menu under "Host (Advanced menu)>Application Insights" will allow you to paste the instrumentation key obtained on step 2. After appying the changes, you will start receiving data on AppInsights after a few minutes.
-
+![alt text](https://intelequia.blob.core.windows.net/images/AppInsights_InstrumentationKey2.png "Instrumentation Key")
