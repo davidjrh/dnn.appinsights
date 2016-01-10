@@ -73,6 +73,10 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.TraceListener.1.2.6\lib\net45\Microsoft.ApplicationInsights.TraceListener.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -110,7 +114,11 @@
   <ItemGroup>
     <None Include="AppInsightsProvider.dnn" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="DotNetNuke.log4net.install.config" />
+    <Content Include="DotNetNuke.log4net.uninstall.config" />
     <None Include="packages.config" />
+    <Content Include="Web.install.config" />
+    <Content Include="Web.uninstall.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

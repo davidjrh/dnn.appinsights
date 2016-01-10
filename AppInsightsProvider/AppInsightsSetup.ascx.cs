@@ -1,27 +1,15 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
 using System.Collections;
-using System.Collections.Specialized;
-using System.Globalization;
+using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using System.Xml.Linq;
-using System.Web.DynamicData;
 using System.Xml;
 using DotNetNuke.Collections;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Framework;
 using DotNetNuke.Framework.JavaScriptLibraries;
 using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.Installer.Log;
+using Microsoft.Web.XmlTransform;
 
 namespace DotNetNuke.Monitoring.AppInsights
 {
@@ -73,6 +61,7 @@ namespace DotNetNuke.Monitoring.AppInsights
                 ModifyLog4NetConfigFile(!chkEnabled.Checked);
                 ModifyAppInsightsConfigFile(!chkEnabled.Checked);
                 ModifyAppInsightsJsFile(!chkEnabled.Checked);
+                ModifyWebConfigFile(!chkEnabled.Checked);
 
             }
             catch (Exception ex)
@@ -91,59 +80,22 @@ namespace DotNetNuke.Monitoring.AppInsights
             }
         }
 
+        private void ModifyWebConfigFile(bool removeSettings = false)
+        {
+            var source = Server.MapPath("~/Web.config");
+            var transform =
+                Server.MapPath("~/DesktopModules/AppInsights/Web." +
+                               (removeSettings ? "uninstall" : "install") + ".config");
+            TransformXmlDoc(source, transform);
+        }
+
         private void ModifyLog4NetConfigFile(bool removeSettings = false)
         {
-            var configFile = Server.MapPath("~/DotNetNuke.log4net.config");
-            if (!File.Exists(configFile))
-            {
-                return;
-            }
-            // Load the config file
-            var config = new ConfigXmlDocument();
-            config.Load(configFile);
-            var log4net = config.SelectSingleNode("/log4net");
-            var root = config.SelectSingleNode("/log4net/root");
-            if (log4net == null || root == null)
-            {
-                return;
-            }
-
-            // Find ai node
-            var node = config.SelectSingleNode("/log4net/appender[@name='aiAppender']");
-            if (node == null && !removeSettings)
-            {
-                node = config.CreateNode(XmlNodeType.Element, "appender", "");
-                var name = config.CreateAttribute("name");
-                name.InnerText = "aiAppender";
-                node.Attributes.Append(name);
-                var type = config.CreateAttribute("type");
-                type.InnerText = "log4net.Appender.TraceAppender, log4net";
-                node.Attributes.Append(type);
-                node.InnerXml = @"<layout type = 'log4net.Layout.PatternLayout'><conversionPattern value = '%message%newline' /></layout>";
-                log4net.AppendChild(node);
-            }
-            if (node != null && removeSettings)
-            {
-                log4net.RemoveChild(node);
-            }
-
-            // Find appender-ref node
-            node = config.SelectSingleNode("/log4net/root/appender-ref[@ref='aiAppender']");
-            if (node == null && !removeSettings)
-            {
-                node = config.CreateNode(XmlNodeType.Element, "appender-ref", "");
-                var refAtt = config.CreateAttribute("ref");
-                refAtt.InnerText = "aiAppender";
-                node.Attributes.Append(refAtt);
-                root.AppendChild(node);
-            }
-            if (node != null && removeSettings)
-            {
-                root.RemoveChild(node);
-            }
-
-            // Save the modifications
-            config.Save(configFile);
+            var source = Server.MapPath("~/DotNetNuke.log4net.config");
+            var transform =
+                Server.MapPath("~/DesktopModules/AppInsights/DotNetNuke.log4net." +
+                               (removeSettings ? "uninstall" : "install") + ".config");
+            TransformXmlDoc(source, transform);
         }
 
 
@@ -192,6 +144,26 @@ namespace DotNetNuke.Monitoring.AppInsights
             var replacement = $@"$1 instrumentationKey:""{key}"" $3";
             var result = rgx.Replace(config, replacement);
             File.WriteAllText(configFile, result);
+        }
+
+        private static void TransformXmlDoc(string sourceFile, string transFile, string destFile = "")
+        {
+            if (string.IsNullOrEmpty(destFile))
+                destFile = sourceFile;
+            // The translation at-hand
+            using (var xmlDoc = new XmlTransformableDocument())
+            {
+                xmlDoc.PreserveWhitespace = true;
+                xmlDoc.Load(sourceFile);
+
+                using (var xmlTrans = new XmlTransformation(transFile))
+                {
+                    if (xmlTrans.Apply(xmlDoc))
+                    {
+                        xmlDoc.Save(destFile);
+                    }
+                }
+            }
         }
 
 
