@@ -1,0 +1,153 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="AppInsights" type="Module" version="01.00.00">
+      <friendlyName>DNN AppInsights Module</friendlyName>
+      <description>Allows to use a AppInsights monitoring within DNN</description>
+      <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
+      <owner>
+        <name>David Rodriguez</name>
+        <organization>David Rodriguez</organization>
+        <url>http://davidjrh.intelequia.com</url>
+        <email>davidjrh@hotmail.com</email>
+      </owner>
+      <license src="License.txt"></license>
+      <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
+      <azureCompatible>true</azureCompatible>
+      <dependencies>
+        <dependency type="CoreVersion">07.00.00</dependency>
+      </dependencies>
+
+      <components>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules/AppInsights</basePath>
+            <resourceFile>
+              <name>Resources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AppInsights</moduleName>
+            <foldername>AppInsights</foldername>
+            <businessControllerClass>DotNetNuke.Monitoring.AppInsights.Components.FeatureController</businessControllerClass>
+            <supportedFeatures>
+              <supportedFeature type="Upgradeable" />
+            </supportedFeatures>
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>AppInsights</friendlyName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AppInsights/AppInsightsSetup.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+          <eventMessage>
+            <processorType>DotNetNuke.Entities.Modules.EventMessageProcessor,DotNetNuke</processorType>
+            <processorCommand>UpgradeModule</processorCommand>
+            <attributes>
+              <businessControllerClass>DotNetNuke.Monitoring.AppInsights.Components.FeatureController,DotNetNuke.Monitoring.AppInsights</businessControllerClass>
+              <desktopModuleID>[DESKTOPMODULEID]</desktopModuleID>
+              <upgradeVersionsList>01.00.00</upgradeVersionsList>
+            </attributes>
+          </eventMessage>
+        </component>
+
+
+
+        <!-- web.config -->
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>              
+              <configuration>
+                <nodes>
+                  <node path="/configuration/system.diagnostics/trace/listeners" action="update" key="name" collision="overwrite">
+                      <add name="DnnAppInsightsListener" type="Microsoft.ApplicationInsights.TraceListener.ApplicationInsightsTraceListener, Microsoft.ApplicationInsights.TraceListener" />
+                  </node>
+                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
+                    <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
+                    <add name="DnnAppInsights" type="DotNetNuke.Monitoring.AppInsights.AppInsightsModule, DotNetNuke.Monitoring.AppInsights" preCondition="managedHandler" />
+                  </node>
+                  <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
+                    <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
+                  </node>
+<!--                  <node collision="save" action="update" 
+                        namespaceprefix="ab" 
+                        namespace="urn:schemas-microsoft-com:asm.v1"                         
+                        path="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='Microsoft.ApplicationInsights']" 
+                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='Microsoft.ApplicationInsights']/ab:bindingRedirect">
+                    <bindingRedirect oldVersion="0.0.0.0-1.2.3.490" newVersion="1.2.3.490"/>
+                  </node>-->
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/system.diagnostics/trace/listeners/add[@name='DnnAppInsightsListener']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/add[@name='DnnAppInsights']" action="remove" />
+                  <node path="/configuration/system.web/httpModules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <basePath>bin</basePath>
+            <assembly>
+              <path>bin</path>
+              <name>DotNetNuke.Monitoring.AppInsights.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.Agent.Intercept.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.DependencyCollector.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.PerfCounterCollector.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.ServerTelemetryChannel.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.Web.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AI.WindowsServer.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.ApplicationInsights.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.ApplicationInsights.TraceListener.dll</name>
+            </assembly>
+          </assemblies>
+        </component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>
