@@ -5,6 +5,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 using DotNetNuke.Collections;
+using DotNetNuke.Entities.Controllers;
+using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Framework;
 using DotNetNuke.Framework.JavaScriptLibraries;
@@ -62,6 +64,9 @@ namespace DotNetNuke.Monitoring.AppInsights
                 ModifyAppInsightsConfigFile(!chkEnabled.Checked);
                 ModifyAppInsightsJsFile(!chkEnabled.Checked);
                 ModifyWebConfigFile(!chkEnabled.Checked);
+
+                // Increment the CRM version to avoid appinsights.js caching
+                HostController.Instance.IncrementCrmVersion(true);
 
             }
             catch (Exception ex)

@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.UI;
 using DotNetNuke.Framework;
+using DotNetNuke.Web.Client.ClientResourceManagement;
 
 namespace DotNetNuke.Monitoring.AppInsights
 {
@@ -24,9 +25,7 @@ namespace DotNetNuke.Monitoring.AppInsights
             page.PreRender += delegate
             {
                 if (!(page is CDefault)) return;
-                if (!page.ClientScript.IsClientScriptIncludeRegistered("AppInsights"))
-                    page.ClientScript.RegisterClientScriptInclude("AppInsights",
-                        page.ResolveUrl("~/DesktopModules/AppInsights/js/appinsights.js"));
+                ClientResourceManager.RegisterScript(page, "~/DesktopModules/AppInsights/js/appinsights.js", 0, "DnnPageHeaderProvider");
             };
         }
     }

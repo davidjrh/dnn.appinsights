@@ -74,32 +74,6 @@
             <install>              
               <configuration>
                 <nodes>
-<!--                  <node path="/configuration" targetpath="/configuration/system.diagnostics" action="update" collision="ignore">
-                    <system.diagnostics></system.diagnostics>
-                  </node>
-                  <node path="/configuration/system.diagnostics" targetpath="/configuration/system.diagnostics/trace" action="add" collision="ignore">
-                    <trace></trace>
-                  </node>
-                  <node path="/configuration/system.diagnostics/trace" targetpath="/configuration/system.diagnostics/trace/listeners" action="add" collision="ignore">
-                    <listeners></listeners>
-                  </node>
-                  <node path="/configuration/system.diagnostics/trace/listeners" action="update" key="name" collision="overwrite">
-                      <add name="DnnAppInsightsListener" type="Microsoft.ApplicationInsights.TraceListener.ApplicationInsightsTraceListener, Microsoft.ApplicationInsights.TraceListener" />
-                  </node>
-                  <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
-                    <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
-                    <add name="DnnAppInsights" type="DotNetNuke.Monitoring.AppInsights.AppInsightsModule, DotNetNuke.Monitoring.AppInsights" preCondition="managedHandler" />
-                  </node>
-                  <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
-                    <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
-                  </node>-->
-<!--                  <node collision="save" action="update" 
-                        namespaceprefix="ab" 
-                        namespace="urn:schemas-microsoft-com:asm.v1"                         
-                        path="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='Microsoft.ApplicationInsights']" 
-                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='Microsoft.ApplicationInsights']/ab:bindingRedirect">
-                    <bindingRedirect oldVersion="0.0.0.0-1.2.3.490" newVersion="1.2.3.490"/>
-                  </node>-->
                 </nodes>
               </configuration>
             </install>
