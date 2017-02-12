@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppInsightsProvider", "AppInsightsProvider\AppInsightsProvider.csproj", "{4371E45D-0BB7-4AE5-8F5E-55ABCE998434}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{7C081C10-9AD3-4A16-A298-6B350D66A500}"
 	ProjectSection(SolutionItems) = preProject
-		Build.proj = Build.proj
 		.build\ModulePackage.targets = .build\ModulePackage.targets
-		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
 		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
 	EndProjectSection
 EndProject

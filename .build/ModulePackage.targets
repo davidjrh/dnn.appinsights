@@ -18,33 +18,19 @@
 
     <!--in VS 2012 we exclude the packages folder -->
     <ItemGroup>
-      <InstallInclude Include="**\*.txt"  Exclude="**\obj\**;**\_ReSharper*\**;packages\**;" />
-      <InstallInclude Include="**\images\*.*" />
-      <InstallInclude Include="**\*.js" />
-      <InstallInclude Include="**\*.ascx" />
-      <InstallInclude Include="**\*.resx" />
-      <InstallInclude Include="**\*.config" />
+      <InstallInclude Include="**\*.txt"  Exclude="**\obj\**;**\_ReSharper*\**;packages\**;AppInsights.Web\**" />
+      <InstallInclude Include="**\images\*.*" Exclude="AppInsights.Web\**" />
+      <InstallInclude Include="**\*.js" Exclude="admin\**;AppInsights.Web\**" />
+      <InstallInclude Include="**\*.ascx" Exclude="AppInsights.Web\**" />
+      <InstallInclude Include="**\*.resx" Exclude="AppInsights.Web\**" />
+      <InstallInclude Include="**\*.config" Exclude="AppInsights.Web\**" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <SourceInclude Include="**\*.asmx" />
-      <SourceInclude Include="**\*.config" />
-      <SourceInclude Include="**\*.ascx" />
-      <SourceInclude Include="**\*.xsl" />
-      <SourceInclude Include="**\*.html" />
-      <SourceInclude Include="**\*.htm" />
-      <SourceInclude Include="**\*.resx" />
-      <SourceInclude Include="**\*.xml" Exclude="**\obj\**;**\_ReSharper*\**;" />
-      <SourceInclude Include="**\*.aspx" />
-      <SourceInclude Include="**\*.js" />
-      <SourceInclude Include="**\*.txt" Exclude="**\obj\**;**\_ReSharper*\**;" />
-      <SourceInclude Include="**\images\*.*" />
-      <SourceInclude Include="**\*.cs" />
-      <SourceInclude Include="**\Packages\**" />
-      <SourceInclude Include="**\*.cs.designer" />
-      <SourceInclude Include="**\*.csproj" />
-      <SourceInclude Include="**\*.targets" />
-      <SourceInclude Include="**\*.sln" />
+      <PersonaBarInclude Include=".\admin\personaBar\**\*.html" Exclude="AppInsights.Web\**" />
+      <PersonaBarInclude Include=".\admin\personaBar\**\*.js" Exclude="AppInsights.Web\**" />
+      <PersonaBarInclude Include=".\admin\personaBar\**\*.css" Exclude="AppInsights.Web\**" />
+      <PersonaBarInclude Include=".\admin\personaBar\**\*.resx" Exclude="AppInsights.Web\**" />
     </ItemGroup>
 
     <CreateItem Include="$(DNNFileName).dnn">
@@ -79,8 +65,6 @@
     <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.ApplicationInsights.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.ApplicationInsights.TraceListener.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.Web.XmlTransform.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-
-
     
 
     <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
@@ -89,13 +73,21 @@
     
     <!-- create the INSTALL RESOURCES.ZIP file -->
     <Copy SourceFiles="@(InstallInclude)" DestinationFolder="$(MSBuildProjectDirectory)\ResourcesZip\%(RecursiveDir)" />
+    <Copy SourceFiles="@(PersonaBarInclude)" DestinationFolder="$(MSBuildProjectDirectory)\PersonaBarResourcesZip\%(RecursiveDir)" />
 
     <CreateItem Include="$(MSBuildProjectDirectory)\ResourcesZip\**\*.*">
       <Output TaskParameter="Include" ItemName="ResourcesContent" />
     </CreateItem>
+    <CreateItem Include="$(MSBuildProjectDirectory)\PersonaBarResourcesZip\**\*.*">
+      <Output TaskParameter="Include" ItemName="PersonaBarResourcesContent" />
+    </CreateItem>
+    
+    
 
     <Zip Files="@(ResourcesContent)" WorkingDirectory="$(MSBuildProjectDirectory)\ResourcesZip" ZipFileName="Resources.$(Extension)" />
+    <Zip Files="@(PersonaBarResourcesContent)" WorkingDirectory="$(MSBuildProjectDirectory)\PersonaBarResourcesZip" ZipFileName="PersonabarResources.$(Extension)" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\Resources.$(Extension)" DestinationFolder="package/" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\PersonaBarResources.$(Extension)" DestinationFolder="package/" />
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContent" />
@@ -103,58 +95,13 @@
     <!-- Create the Install package -->
     <Zip Files="@(OutputContent)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(Version)_Install.$(Extension)" />
     <!-- Copy the Install package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)_Install.$(Extension)" DestinationFolder="install/" />
-
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\ResourcesZip" />
-
-
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.Agent.Intercept.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.DependencyCollector.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.DependencyCollector.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.PerfCounterCollector.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.ServerTelemetryChannel.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.ServerTelemetryChannel.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.Web.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.Web.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.WindowsServer.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.AI.WindowsServer.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.ApplicationInsights.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.ApplicationInsights.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.ApplicationInsights.TraceListener.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildDnnBinPath)\Microsoft.Web.XmlTransform.dll" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-
-
-    <Copy SourceFiles="@(SqlDataProviderFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
-    <Copy SourceFiles="@(PackageManifestFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
-    <Copy SourceFiles="@(PackageTxtFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package" />
-
-    <!-- create the SOURCE RESOURCES.ZIP file -->
-    <Copy SourceFiles="@(SourceInclude)" DestinationFolder="$(MSBuildProjectDirectory)\ResourcesZip\%(RecursiveDir)" />
-
-    <CreateItem Include="$(MSBuildProjectDirectory)\ResourcesZip\**\*.*">
-      <Output TaskParameter="Include" ItemName="SourceContent" />
-    </CreateItem>
-
-    <Zip Files="@(SourceContent)" WorkingDirectory="$(MSBuildProjectDirectory)\ResourcesZip" ZipFileName="Resources.$(Extension)" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Resources.$(Extension)" DestinationFolder="package/" />
-
-    <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
-      <Output TaskParameter="Include" ItemName="OutputSource" />
-    </CreateItem>
-
-    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)_$(Version)_Source.$(Extension)" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)_Source.$(Extension)" DestinationFolder="install/" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)_Install.$(Extension)" DestinationFolder="../releases/" />
 
     <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)_Install.$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)_$(Version)_Source.$(Extension)" />
-
-    <Delete Files="$(MSBuildProjectDirectory)\Resources.Zip" />
-
+    <Delete Files="$(MSBuildProjectDirectory)\Resources.Zip" />    
+    <Delete Files="$(MSBuildProjectDirectory)\PersonaBarResources.Zip" />    
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
-
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\ResourcesZip" />
-
+    <RemoveDir Directories ="$(MSBuildProjectDirectory)\PersonaBarResourcesZip" />
   </Target>
 </Project>

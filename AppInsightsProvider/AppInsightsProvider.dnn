@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="01.00.00">
+    <package name="AppInsights" type="Module" version="02.00.00">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
@@ -14,7 +14,8 @@
       <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
       <azureCompatible>true</azureCompatible>
       <dependencies>
-        <dependency type="CoreVersion">07.00.00</dependency>
+        <dependency type="CoreVersion">09.00.01</dependency>
+        <dependency type="ManagedPackage" version="01.00.00">Dnn.PersonaBar.UI</dependency>
       </dependencies>
 
       <components>
@@ -23,6 +24,15 @@
             <basePath>DesktopModules/AppInsights</basePath>
             <resourceFile>
               <name>Resources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules/admin/Dnn.PersonaBar/Modules/Dnn.AppInsights</basePath>
+            <resourceFile>
+              <name>PersonaBarResources.zip</name>
             </resourceFile>
           </resourceFiles>
         </component>
@@ -64,6 +74,21 @@
             </attributes>
           </eventMessage>
         </component>
+
+
+        <component type="PersonaBarMenu">
+          <menu>
+            <identifier>Dnn.AppInsights</identifier>
+            <moduleName>AppInsights</moduleName>
+            <controller>DotNetNuke.Monitoring.AppInsights.Components.MenuController, DotNetNuke.Monitoring.AppInsights</controller>
+            <resourceKey>nav_AppInsights</resourceKey>
+            <path>AppInsights</path>
+            <parent>Settings</parent>
+            <mobileSupport>true</mobileSupport>
+            <order>1</order>
+          </menu>
+        </component>
+
 
 
 
