@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="02.01.00">
+    <package name="AppInsights" type="Module" version="02.04.00">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
