@@ -10,7 +10,7 @@
         <url>http://davidjrh.intelequia.com</url>
         <email>davidjrh@hotmail.com</email>
       </owner>
-      <license src="License.txt"></license>
+      <license src="AppInsightsLicense.txt"></license>
       <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
       <azureCompatible>true</azureCompatible>
       <dependencies>
@@ -37,45 +37,6 @@
           </resourceFiles>
         </component>
 
-        <component type="Module">
-          <desktopModule>
-            <moduleName>AppInsights</moduleName>
-            <foldername>AppInsights</foldername>
-            <businessControllerClass>DotNetNuke.Monitoring.AppInsights.Components.FeatureController</businessControllerClass>
-            <supportedFeatures>
-              <supportedFeature type="Upgradeable" />
-            </supportedFeatures>
-            <moduleDefinitions>
-              <moduleDefinition>
-                <friendlyName>AppInsights</friendlyName>
-                <defaultCacheTime>0</defaultCacheTime>
-                <moduleControls>
-                  <moduleControl>
-                    <controlKey />
-                    <controlSrc>DesktopModules/AppInsights/AppInsightsSetup.ascx</controlSrc>
-                    <supportsPartialRendering>False</supportsPartialRendering>
-                    <controlTitle />
-                    <controlType>View</controlType>
-                    <iconFile />
-                    <helpUrl />
-                    <viewOrder>0</viewOrder>
-                  </moduleControl>
-                </moduleControls>
-              </moduleDefinition>
-            </moduleDefinitions>
-          </desktopModule>
-          <eventMessage>
-            <processorType>DotNetNuke.Entities.Modules.EventMessageProcessor,DotNetNuke</processorType>
-            <processorCommand>UpgradeModule</processorCommand>
-            <attributes>
-              <businessControllerClass>DotNetNuke.Monitoring.AppInsights.Components.FeatureController,DotNetNuke.Monitoring.AppInsights</businessControllerClass>
-              <desktopModuleID>[DESKTOPMODULEID]</desktopModuleID>
-              <upgradeVersionsList>01.00.00</upgradeVersionsList>
-            </attributes>
-          </eventMessage>
-        </component>
-
-
         <component type="PersonaBarMenu">
           <menu>
             <identifier>Dnn.AppInsights</identifier>
@@ -88,8 +49,6 @@
             <order>1</order>
           </menu>
         </component>
-
-
 
 
         <!-- web.config -->

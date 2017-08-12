@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InstrumentationKeyRequired.Text" xml:space="preserve">
+    <value>If enabled, you must specify an instrumentation key</value>
+  </data>
   <data name="nav_AppInsights.Text" xml:space="preserve">
     <value>Application Insights</value>
+  </data>
+  <data name="No.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="plEnabled.Help" xml:space="preserve">
+    <value>Enabling Application Insights will start sending telemetry data to your Application Insights store on the cloud</value>
+  </data>
+  <data name="plEnabled.Text" xml:space="preserve">
+    <value>Enable Application Insights</value>
+  </data>
+  <data name="plInstrumentationKey.Help" xml:space="preserve">
+    <value>Copy and paste the AppInsights Instrumentation Key available at the Azure Portal</value>
+  </data>
+  <data name="plInstrumentationKey.Text" xml:space="preserve">
+    <value>Instrumentation Key</value>
+  </data>
+  <data name="SettingsError.Text" xml:space="preserve">
+    <value>Could not update the settings. Please try later.</value>
+  </data>
+  <data name="SettingsRestoreWarning.Text" xml:space="preserve">
+    <value>Are you sure you want to cancel your changes?</value>
+  </data>
+  <data name="SettingsUpdateSuccess.Text" xml:space="preserve">
+    <value>The settings have been updated.</value>
+  </data>
+  <data name="Yes.Text" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

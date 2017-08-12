@@ -41,6 +41,12 @@
       <HintPath>..\packages\DotNetNuke.Core.9.0.1.142\lib\net40\DotNetNuke.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DotNetNuke.Instrumentation">
+      <HintPath>..\packages\DotNetNuke.Instrumentation.9.0.1.142\lib\net40\DotNetNuke.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Web">
+      <HintPath>..\packages\DotNetNuke.Web.9.0.1.142\lib\net40\DotNetNuke.Web.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetNuke.Web.Client, Version=9.0.1.142, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetNuke.Web.Client.9.0.1.142\lib\net40\DotNetNuke.Web.Client.dll</HintPath>
       <Private>True</Private>
@@ -85,12 +91,23 @@
       <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -101,38 +118,19 @@
   <ItemGroup>
     <Compile Include="AppInsightsLoggingProvider.cs" />
     <Compile Include="AppInsightsModule.cs" />
+    <Compile Include="Components\AppInsightsConfig.cs" />
     <Compile Include="Components\Extensions.cs" />
-    <Compile Include="Components\FeatureController.cs" />
-    <Compile Include="AppInsightsSetup.ascx.cs">
-      <DependentUpon>AppInsightsSetup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AppInsightsSetup.ascx.designer.cs">
-      <DependentUpon>AppInsightsSetup.ascx.cs</DependentUpon>
-    </Compile>
     <Compile Include="Components\MenuController.cs" />
+    <Compile Include="Services\AppInsightsController.cs" />
+    <Compile Include="Services\AppInsightsSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ServiceRouteMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\personaBar\scripts\bundles\bundle-en.js" />
-    <Content Include="AppInsights.Web\.eslintrc.js" />
-    <Content Include="AppInsights.Web\.eslintskipwords.js" />
-    <Content Include="AppInsights.Web\src\components\App.jsx" />
-    <Content Include="AppInsights.Web\src\containers\DevTools.js" />
-    <Content Include="AppInsights.Web\src\containers\Root.dev.js" />
-    <Content Include="AppInsights.Web\src\containers\Root.js" />
-    <Content Include="AppInsights.Web\src\containers\Root.prod.js" />
-    <Content Include="AppInsights.Web\src\main.jsx" />
-    <Content Include="AppInsights.Web\src\reducers\rootReducer.js" />
-    <Content Include="AppInsights.Web\src\store\configureStore.js" />
-    <Content Include="AppInsights.Web\src\utils\index.jsx" />
-    <Content Include="AppInsights.Web\webpack.config.js" />
-    <Content Include="AppInsightsSetup.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <Content Include="images\AppInsights.png" />
     <Content Include="js\appinsights.js" />
-    <Content Include="License.txt" />
+    <Content Include="AppInsightsLicense.txt" />
     <Content Include="admin\personaBar\AppInsights.html" />
     <Content Include="admin\personaBar\css\AppInsights.css" />
     <Content Include="admin\personaBar\scripts\AppInsights.js" />
@@ -140,10 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="AppInsights.Web\.babelrc" />
-    <None Include="AppInsights.Web\.eslintignore" />
-    <None Include="AppInsights.Web\jsconfig.json" />
-    <None Include="AppInsights.Web\package.json" />
     <None Include="AppInsightsProvider.dnn" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -175,14 +169,11 @@
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)$(TargetName).* C:\Websites\dnn901.dnndev.me\bin /Y</PostBuildEvent>
   </PropertyGroup>
-
   <Import Project="..\.build\ModulePackage.Targets" />
   <Target Name="AfterBuild" DependsOnTargets="PackageModule">
   </Target>
-
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <UsingTask TaskName="SetEnvironmentVariableTask" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
@@ -200,5 +191,4 @@
     <SetEnvironmentVariableTask Name="NODE_ENV" Value="production" />
     <Exec Command="webpack -p" WorkingDirectory="AppInsights.Web" />
   </Target>
-
 </Project>

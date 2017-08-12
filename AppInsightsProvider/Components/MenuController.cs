@@ -25,7 +25,11 @@ namespace DotNetNuke.Monitoring.AppInsights.Components
 
         public IDictionary<string, object> GetSettings(int portalId)
         {
-            var uiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.AppInsights";
+#if DEBUG
+            var uiUrl = "http://localhost:8080/dist";
+#else
+            var uiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.AppInsights";            
+#endif
             var apiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.AppInsights";
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
