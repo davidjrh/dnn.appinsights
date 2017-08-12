@@ -1,6 +1,9 @@
 ﻿<p style="margin: 0"><b>DNN AppInsights Provider</b></p>
 <p style="margin: 0"><a href="http://davidjrh.intelequia.com" target="_new">David Rodriguez</a><br /><a href="mailto:davidjrh@hotmail.com">davidjrh@hotmail.com</a></p>
 <p style="margin: 0"><strong>About the DNN AppInsights Provider</strong></p>
+<p style="margin: 0"><strong>Version 03.00.00</strong></p>
+<p style="margin: 0">Minimum DNN version is 9.0.1</p>
+<p style="margin: 0">Persona bar implementation (host page no longer being created)</p>
 <p style="margin: 0"><strong>Version 02.04.00</strong></p>
 <p style="margin: 0">Updated package to support version 2.4.0 of the Application Insights system, including enhanced live metrics streaming.</p>
 <p style="margin: 0"><b>Version 02.01.00</b></p>
