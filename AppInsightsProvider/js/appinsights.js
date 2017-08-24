@@ -6,3 +6,22 @@ var appInsights=window.appInsights||function(config){
 
 window.appInsights=appInsights;
 appInsights.trackPageView();
+
+// *** DO NOT HAVE SPACE BETWEEN : and "".
+var dx1object = {
+    geo:"",
+    app:"",
+    podName:""
+};
+appInsights.queue.push(function () {
+    appInsights.context.addTelemetryInitializer(function (envelope) {
+        var telemetryItem = envelope.data.baseData;
+
+        // To set custom properties:
+        telemetryItem.properties = telemetryItem.properties || {};
+        telemetryItem.properties["GEO"] = dx1object.geo;
+        telemetryItem.properties["App"] = dx1object.app;
+        telemetryItem.properties["PodName"] = dx1object.podName;
+        telemetryItem.properties["DealershipName"] = window.location.hostname;
+    });
+});

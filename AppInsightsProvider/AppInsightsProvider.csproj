@@ -93,8 +93,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting">
@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AITelemetry.cs" />
     <Compile Include="AppInsightsLoggingProvider.cs" />
     <Compile Include="AppInsightsModule.cs" />
     <Compile Include="Components\AppInsightsConfig.cs" />
@@ -138,9 +139,12 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="AppInsightsProvider.dnn" />
+    <None Include="AppInsightsProvider.dnn">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DotNetNuke.log4net.install.config" />
     <Content Include="DotNetNuke.log4net.uninstall.config" />
