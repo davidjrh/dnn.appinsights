@@ -12,11 +12,38 @@ namespace DotNetNuke.Monitoring.AppInsights
     public class AppInsightsLoggingProvider: DBLoggingProvider
     {
         private static TelemetryClient _appInsightsClient;
-        private static TelemetryClient AppInsightsClient => _appInsightsClient ?? (_appInsightsClient = new TelemetryClient
+        
+        private static TelemetryClient AppInsightsClient
         {
-            InstrumentationKey =
-                TelemetryConfiguration.Active.InstrumentationKey
-        });
+            get
+            {
+                if (_appInsightsClient == null)
+                {
+                    TelemetryConfiguration.Active.TelemetryInitializers.Add(new TelemetryInitializer());
+                    _appInsightsClient = new TelemetryClient
+                                         {
+                                             InstrumentationKey = TelemetryConfiguration.Active.InstrumentationKey
+                                         };
+
+                    // initial processor chain here
+                    var builder = TelemetryConfiguration.Active.TelemetryProcessorChainBuilder;
+                    builder.Use((next) => new DependencyFilter(next));
+                    builder.Use((next) => new RequestFilter(next));
+                    builder.Build();
+
+                    // temporary fix from https://github.com/Microsoft/ApplicationInsights-dotnet/issues/549
+                    foreach (var processor in TelemetryConfiguration.Active.TelemetryProcessors)
+                    {
+                        var telemetryModule = processor as ITelemetryModule;
+                        if (telemetryModule != null)
+                        {
+                            telemetryModule.Initialize(TelemetryConfiguration.Active);
+                        }
+                    }
+                }
+                return _appInsightsClient;
+            }
+        }
 
         public override void AddLog(LogInfo logInfo)
         {   

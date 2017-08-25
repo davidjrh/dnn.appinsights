@@ -9,6 +9,8 @@ using DotNetNuke.Entities.Controllers;
 
 namespace DotNetNuke.Monitoring.AppInsights.Components
 {
+    using System.Collections.Generic;
+
     internal class AppInsightsConfig
     {
         internal static void ModifyWebConfigFile(bool removeSettings = false)
@@ -68,12 +70,35 @@ namespace DotNetNuke.Monitoring.AppInsights.Components
                 throw new Exception($"Couldn't find the Application Insights javascript file on '{configFile}'");
             }
 
+            // Get the website name from azure environment
+            var webname = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
+            if (string.IsNullOrEmpty(webname))
+            {
+                webname = Environment.MachineName;
+            }
+
             var key = removeSettings ? string.Empty : HostController.Instance.GetString("AppInsights.InstrumentationKey");
+            var geo = removeSettings ? string.Empty : Dx1Configuration.GetSetting("GEO");
+            var podName = removeSettings ? string.Empty : webname;
+            var replaceValues = new Dictionary<string, string>
+                                {
+                                    {"instrumentationKey", key},
+                                    { "geo", geo},
+                                    { "app", "DX1DNN"},
+                                    { "podName",podName}
+                                };
+
             var config = File.ReadAllText(configFile);
-            const string pattern = @"(?<left>.*)(?<instrumentationKey>instrumentationKey:"".*"")(?<right>.*)";
-            var rgx = new Regex(pattern);
-            var replacement = $@"$1 instrumentationKey:""{key}"" $3";
-            var result = rgx.Replace(config, replacement);
+            var result = string.Empty;
+            foreach (var replaceValue in replaceValues)
+            {
+                var pattern = $@"(?<left>.*)(?<{replaceValue.Key}>{replaceValue.Key}:"".*"")(?<right>.*)";
+                var rgx = new Regex(pattern);
+                var replacement = $@"$1 {replaceValue.Key}:""{replaceValue.Value}"" $3";
+                result = rgx.Replace(config, replacement);
+                config = result;
+            }
+            
             File.WriteAllText(configFile, result);
         }
 

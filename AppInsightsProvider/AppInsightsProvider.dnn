@@ -57,7 +57,33 @@
             <configFile>web.config</configFile>
             <install>              
               <configuration>
-                <nodes>
+                <nodes appendFromNant="xmlMergeNodes">
+
+                  <!--<appSettings>-->
+                  <!--New appSettings For Dx1 DNN-->
+                  <node path="/configuration/appSettings" action="update" key="key"  collision="overwrite" >
+                    <!--<appSettings for Dependency filter>-->
+                    <add key="SqlMs" value="250"/>
+                    <add key="QueueMs" value="3000"/>
+                    <add key="BlobMs" value="3000"/>
+                    <add key="TableMs" value="3000"/>
+                    <add key="HttpMs" value="3000"/>
+                    <add key="TrackSqlConnection" value="false"/>
+                    <!--<appSettings for Dependency filter>-->
+                    <add key="HttpCode20xMs" value="0"/>
+                    <add key="HttpCode30xMs" value="0"/>
+                  </node>
+
+                  <!-- assemblyBinding-->
+                  <node path="/configuration/runtime/ab:assemblyBinding" action="update"
+                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='Microsoft.ApplicationInsights']"
+                        collision="overwrite" nameSpace="urn:schemas-microsoft-com:asm.v1" nameSpacePrefix="ab" owner="DNN">
+                    <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
+                      <assemblyIdentity name="Microsoft.ApplicationInsights" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+                      <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0" />
+                    </dependentAssembly>
+                  </node>
+
                 </nodes>
               </configuration>
             </install>
@@ -68,6 +94,19 @@
                   <node path="/configuration/system.webServer/modules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
                   <node path="/configuration/system.webServer/modules/add[@name='DnnAppInsights']" action="remove" />
                   <node path="/configuration/system.web/httpModules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
+
+                  <!--<appSettings>-->
+                  <!--Remove appSettings For Dx1 DNN-->
+                  <node path="/configuration/appSettings/add[@key='SqlMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='QueueMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='BlobMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='TableMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='HttpMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='TrackSqlConnection']" action="remove"/>
+
+                  <node path="/configuration/appSettings/add[@key='HttpCode20xMs']" action="remove"/>
+                  <node path="/configuration/appSettings/add[@key='HttpCode30xMs']" action="remove"/>
+
                 </nodes>
               </configuration>
             </uninstall>
