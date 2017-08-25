@@ -71,7 +71,7 @@ namespace DotNetNuke.Monitoring.AppInsights
             }
 
             // this is how to add properties to every telemetry item sent
-            // Check to see if we are already initted
+            // Check to see if we are already initiated
             if (!telemetry.Context.Properties.ContainsKey("GEO"))
             {
                 telemetry.Context.Properties.Add("GEO", Dx1Configuration.GetSetting("GEO"));
