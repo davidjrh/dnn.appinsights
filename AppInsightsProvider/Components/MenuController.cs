@@ -26,7 +26,7 @@ namespace DotNetNuke.Monitoring.AppInsights.Components
         public IDictionary<string, object> GetSettings(int portalId)
         {
 #if DEBUG
-            var uiUrl = "http://localhost:8080/dist";
+            var uiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.AppInsights";
 #else
             var uiUrl = "/DesktopModules/Admin/Dnn.PersonaBar/Modules/Dnn.AppInsights";            
 #endif

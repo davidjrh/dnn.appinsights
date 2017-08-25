@@ -30,6 +30,16 @@ namespace DotNetNuke.Monitoring.AppInsights
                     builder.Use((next) => new DependencyFilter(next));
                     builder.Use((next) => new RequestFilter(next));
                     builder.Build();
+
+                    // temporary fix from https://github.com/Microsoft/ApplicationInsights-dotnet/issues/549
+                    foreach (var processor in TelemetryConfiguration.Active.TelemetryProcessors)
+                    {
+                        var telemetryModule = processor as ITelemetryModule;
+                        if (telemetryModule != null)
+                        {
+                            telemetryModule.Initialize(TelemetryConfiguration.Active);
+                        }
+                    }
                 }
                 return _appInsightsClient;
             }
