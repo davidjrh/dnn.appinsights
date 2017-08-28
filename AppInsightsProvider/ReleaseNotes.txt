@@ -11,3 +11,8 @@
 
 <p style="margin: 0"><b>Version 01.00.00</b></p>
 <p style="margin: 0">This monitoring provider allows to use Visual Studio Application Insights within DNN. Create a new AppInsights account at <a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_new">https://azure.microsoft.com/en-us/services/application-insights/</a></p>
+<br/>
+<p style="margin: 0"><b>NOTES for DX1 Changes</b></p>
+<li style="margin: 0">Add custom properties "podName", "GEO" and "App"</li>
+<li style="margin: 0">Update AI for dependency checking and don't log items with duration less than X</li> 
+<li style="margin: 0">Update AI Request Filter checking and don't log items with duration less than X for HTTP Code 2xx and 3xx.</li> 
