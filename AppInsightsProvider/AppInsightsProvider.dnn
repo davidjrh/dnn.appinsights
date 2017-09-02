@@ -58,13 +58,27 @@
             <install>              
               <configuration>
                 <nodes>
+                  <node path="/configuration/runtime/ab:assemblyBinding"
+                        action="update"
+                        collision="save"
+                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='System.Diagnostics.DiagnosticSource'][ab:assemblyIdentity/@publicKeyToken='cc7b13ffcd2ddd51']"
+                        nameSpace="urn:schemas-microsoft-com:asm.v1"
+                        nameSpacePrefix="ab">
+                    <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
+                      <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" />
+                      <bindingRedirect oldVersion="0.0.0.0-4.0.2.1" newVersion="4.0.2.1" />
+                    </dependentAssembly>
+                  </node>                  
                 </nodes>
               </configuration>
             </install>
             <uninstall>
               <configuration>
                 <nodes>
+                  <node path="/configuration/dotnetnuke/logging" action="updateattribute" name="defaultProvider" value="DBLoggingProvider" />
+                  <node path="/configuration/dotnetnuke/caching/providers/add[@name='AppInsightsLoggingProvider']" action="remove" />
                   <node path="/configuration/system.diagnostics/trace/listeners/add[@name='DnnAppInsightsListener']" action="remove" />
+                  <node path="/configuration/system.webServer/modules/add[@name='TelemetryCorrelationHttpModule']" action="remove" />
                   <node path="/configuration/system.webServer/modules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
                   <node path="/configuration/system.webServer/modules/add[@name='DnnAppInsights']" action="remove" />
                   <node path="/configuration/system.web/httpModules/add[@name='ApplicationInsightsWebTracking']" action="remove" />
@@ -115,7 +129,15 @@
             <assembly>
               <path>bin</path>
               <name>Microsoft.Web.XmlTransform.dll</name>
-            </assembly>            
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>Microsoft.AspNet.TelemetryCorrelation.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Diagnostics.DiagnosticSource.dll</name>
+            </assembly>
           </assemblies>
         </component>
       </components>
