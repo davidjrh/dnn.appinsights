@@ -17,19 +17,19 @@ This module is a DNN Platorm extension to integrate Visual Studio Application In
 * Visual Studio 2017 (download from https://www.visualstudio.com/downloads/)
 * npm package manager (download from https://www.npmjs.com/get-npm)
 
-#### Configure local npm to use the DNN public repository
+### Configure local npm to use the DNN public repository
 From the command line, the following command must be executed:
 ```
    npm config set registry https://www.myget.org/F/dnn-software-public/npm/
 ```
-#### Install package dependencies
+### Install package dependencies
 From the comman line, enter the <RepoRoot>\AppInsightsProvider\AppInsights.Web and run the following commands:
 ```
   npm install -g webpack
   npm install
 ```
 
-#### Build the module
+### Build the module
 Now you can build the solution by opening the AppInsightsProvider.sln file on Visual Studio 2017. Building the solution in "Release", will generate the React bundle and package it all together with the installation zip file, created under the "\releases" folder.
 
 On the Visual Studio output window you should see something like this:
