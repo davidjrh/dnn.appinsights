@@ -149,6 +149,8 @@
     </None>
     <Content Include="Web.install.config" />
     <Content Include="Web.uninstall.config" />
+    <None Include="Providers\DataProviders\SqlDataProvider\Uninstall.SqlDataProvider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.00.01.SqlDataProvider" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

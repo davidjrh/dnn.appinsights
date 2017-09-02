@@ -1,0 +1,5 @@
+﻿IF EXISTS(SELECT TabId FROM {databaseOwner}[{objectQualifier}Tabs] WHERE TabName='Application Insights' AND PortalID IS NULL)
+BEGIN
+	DELETE FROM {databaseOwner}[{objectQualifier}Tabs] WHERE TabName='Application Insights' AND PortalID IS NULL
+END
+GO

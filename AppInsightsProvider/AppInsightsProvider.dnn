@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="03.00.00">
+    <package name="AppInsights" type="Module" version="03.00.01">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
@@ -19,6 +19,23 @@
       </dependencies>
 
       <components>
+
+        <component type="Script">
+          <scripts>
+            <basePath>DesktopModules\AppInsights</basePath>
+            <script type="Install">
+              <path>Providers\DataProviders\SqlDataProvider</path>
+              <name>03.00.01.SqlDataProvider</name>
+              <version>03.00.01</version>
+            </script>
+            <script type="UnInstall">
+              <path>Providers\DataProviders\SqlDataProvider</path>
+              <name>Uninstall.SqlDataProvider</name>
+              <version>03.00.01</version>
+            </script>
+          </scripts>
+        </component>
+        
         <component type="ResourceFile">
           <resourceFiles>
             <basePath>DesktopModules/AppInsights</basePath>
