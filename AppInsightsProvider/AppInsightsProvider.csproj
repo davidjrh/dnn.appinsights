@@ -122,7 +122,6 @@
     <Compile Include="Services\AppInsightsController.cs" />
     <Compile Include="Services\AppInsightsSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ServiceRouteMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\personaBar\scripts\bundles\bundle-en.js" />
