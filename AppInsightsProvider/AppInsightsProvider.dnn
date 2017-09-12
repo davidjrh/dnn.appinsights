@@ -46,7 +46,7 @@
             <path>AppInsights</path>
             <parent>Settings</parent>
             <mobileSupport>true</mobileSupport>
-            <order>1</order>
+            <order>10</order>
           </menu>
         </component>
 
