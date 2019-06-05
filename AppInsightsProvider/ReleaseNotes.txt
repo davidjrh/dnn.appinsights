@@ -6,6 +6,9 @@
 <p style="margin: 0">Changed the logging provider to the DBLoggingProvider on uninstall</p>
 <p style="margin: 0">Removed old Application Insights Host menu</p>
 
+<p style="margin: 0"><strong>Version 03.01.00</strong></p>
+<p style="margin: 0">Updated persona bar module to be 9.3.x compatible</p>
+
 <p style="margin: 0"><strong>Version 03.00.00</strong></p>
 <p style="margin: 0">Minimum DNN version is 9.0.1</p>
 <p style="margin: 0">Persona bar implementation (host page no longer being created)</p>
