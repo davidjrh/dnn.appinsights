@@ -1,12 +1,7 @@
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import PersonaBarPage from "dnn-persona-bar-page";
-import PersonaBarPageHeader from "dnn-persona-bar-page-header";
-import PersonaBarPageBody from "dnn-persona-bar-page-body";
-import Button from "dnn-button";
-import SingleLineInputWithError from "dnn-single-line-input-with-error";
-import Label from "dnn-label";
-import Switch from "dnn-switch";
+import {PersonaBarPage, PersonaBarPageHeader, PersonaBarPageBody, Button, SingleLineInputWithError, Label, Switch} from "@dnnsoftware/dnn-react-common";
 import resx from "../resources";
 import util from "../utils";
 import {
@@ -32,7 +27,7 @@ class App extends Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const {props} = this;
 
         if (props.settingsLoaded) {
@@ -52,7 +47,7 @@ class App extends Component {
         }));        
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         this.setState({
             enabled: props.enabled,
             instrumentationKey: props.instrumentationKey,
@@ -145,8 +140,7 @@ class App extends Component {
                             <div className="left">
                                 <Switch labelHidden={true}
                                     value={state.enabled }
-                                    onChange={this.onSettingChange.bind(this, "Enabled") }
-                                    />
+                                    onChange={this.onSettingChange.bind(this, "Enabled") } />
                             </div>
                         </div>
                         <div className="editor-row">
@@ -157,8 +151,7 @@ class App extends Component {
                                 error={this.state.error.instrumentationKey}
                                 errorMessage={resx.get("InstrumentationKeyRequired")}
                                 value={state.instrumentationKey || ""}
-                                onChange={this.onSettingChange.bind(this, "InstrumentationKey") }
-                                />
+                                onChange={this.onSettingChange.bind(this, "InstrumentationKey") } />
                         </div>
 
                         <div className="buttons-box">
