@@ -49,10 +49,10 @@ namespace DotNetNuke.Monitoring.AppInsights
             prop.AddIfNotNull("PortalName", logInfo.LogPortalName);
             prop.AddIfNotNull("ServerName", logInfo.LogServerName);
             prop.AddIfNotNull("UserName", logInfo.LogUserName);
-            prop.Add("CreateDate", logInfo.LogCreateDate.ToString(CultureInfo.InvariantCulture));
-            prop.Add("EventID", logInfo.LogEventID.ToString());
-            prop.Add("PortalID", logInfo.LogPortalID.ToString());
-            prop.Add("UserID", logInfo.LogUserID.ToString());
+            prop.AddIfNotNull("CreateDate", logInfo.LogCreateDate.ToString(CultureInfo.InvariantCulture));
+            prop.AddIfNotNull("EventID", logInfo.LogEventID.ToString());
+            prop.AddIfNotNull("PortalID", logInfo.LogPortalID.ToString());
+            prop.AddIfNotNull("UserID", logInfo.LogUserID.ToString());
             prop.AddIfNotNull("Exception.Message", logInfo.Exception.Message);
             prop.AddIfNotNull("Exception.Source", logInfo.Exception.Source);
             prop.AddIfNotNull("Exception.StackTrace", logInfo.Exception.StackTrace);
@@ -63,7 +63,7 @@ namespace DotNetNuke.Monitoring.AppInsights
                 prop.AddIfNotNull("Summary", logInfo.LogProperties.Summary);
                 foreach (LogDetailInfo logProperty in logInfo.LogProperties)
                 {
-                    prop.Add(logProperty.PropertyName, logProperty.PropertyValue);
+                    prop.AddIfNotNull(logProperty.PropertyName, logProperty.PropertyValue);
                 }
             }
             return prop;
