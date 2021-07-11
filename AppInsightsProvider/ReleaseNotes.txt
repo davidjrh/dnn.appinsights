@@ -1,13 +1,19 @@
 ﻿<p style="margin: 0"><b>DNN AppInsights Provider</b></p>
 <p style="margin: 0"><a href="http://davidjrh.intelequia.com" target="_new">David Rodriguez</a><br /><a href="mailto:davidjrh@hotmail.com">davidjrh@hotmail.com</a></p>
 <p style="margin: 0"><strong>About the DNN AppInsights Provider</strong></p>
+
+<p style="margin: 0"><strong>Version 04.00.00</strong></p>
+<p style="margin: 0">Updated Application Insights SDK to 2.17.0</p>
+<p style="margin: 0">Minimum DNN Platform version updated to 9.8.0</p>
+
+<p style="margin: 0"><strong>Version 03.01.00</strong></p>
+<p style="margin: 0">Updated persona bar module to be 9.3.x compatible</p>
+
 <p style="margin: 0"><strong>Version 03.00.01</strong></p>
 <p style="margin: 0">Fix for the web request tracking not working properly. If you are upgrading the module, you will need to disable and enable again the provider from the Application Insights settings to apply the changes.</p>
 <p style="margin: 0">Changed the logging provider to the DBLoggingProvider on uninstall</p>
 <p style="margin: 0">Removed old Application Insights Host menu</p>
 
-<p style="margin: 0"><strong>Version 03.01.00</strong></p>
-<p style="margin: 0">Updated persona bar module to be 9.3.x compatible</p>
 
 <p style="margin: 0"><strong>Version 03.00.00</strong></p>
 <p style="margin: 0">Minimum DNN version is 9.0.1</p>

@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="03.01.00">
+    <package name="AppInsights" type="Module" version="04.00.00">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
@@ -14,7 +14,7 @@
       <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
       <azureCompatible>true</azureCompatible>
       <dependencies>
-        <dependency type="CoreVersion">09.03.00</dependency>
+        <dependency type="CoreVersion">09.08.00</dependency>
         <dependency type="ManagedPackage" version="01.00.00">Dnn.PersonaBar.UI</dependency>
       </dependencies>
 
@@ -83,9 +83,20 @@
                         nameSpacePrefix="ab">
                     <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
                       <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" />
-                      <bindingRedirect oldVersion="0.0.0.0-4.0.2.1" newVersion="4.0.2.1" />
+                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="5.0.0.0" />
                     </dependentAssembly>
-                  </node>                  
+                  </node>
+                  <node path="/configuration/runtime/ab:assemblyBinding"
+                        action="update"
+                        collision="save"
+                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='System.Runtime.CompilerServices.Unsafe'][ab:assemblyIdentity/@publicKeyToken='b03f5f7f11d50a3a']"
+                        nameSpace="urn:schemas-microsoft-com:asm.v1"
+                        nameSpacePrefix="ab">
+                    <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
+                      <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" />
+                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="5.0.0.0" />
+                    </dependentAssembly>
+                  </node>
                 </nodes>
               </configuration>
             </install>
@@ -150,6 +161,27 @@
             <assembly>
               <path>bin</path>
               <name>Microsoft.AspNet.TelemetryCorrelation.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Diagnostics.DiagnosticSource.dll</name>
+            </assembly>
+
+            <assembly>
+              <path>bin</path>
+              <name>System.Buffers.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Memory.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Numerics.Vectors.dll</name>
+            </assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Runtime.CompilerServices.Unsafe.dll</name>
             </assembly>
             <assembly>
               <path>bin</path>
