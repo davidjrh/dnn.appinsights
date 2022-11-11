@@ -1,6 +1,7 @@
 ﻿const webpack = require("webpack");
-const packageJson = require("./package.json");
+const webpackExternals = require("@dnnsoftware/dnn-react-common/WebpackExternals");
 const path = require("path");
+const packageJson = require("./package.json");
 const isProduction = process.env.NODE_ENV === "production";
 const languages = {
     "en": null
@@ -12,94 +13,81 @@ const languages = {
     // "nl": require("./localizations/nl.json")
 };
 
-const webpackExternals = require("@dnnsoftware/dnn-react-common/WebpackExternals");
+module.exports = {
+    entry: "./src/main.jsx",
+    optimization: {
+        minimize: isProduction
+    },    
+    output: {
+        path: path.resolve(__dirname, "../admin/personaBar/scripts/bundles/"),
+        filename: "bundle-en.js",
+        publicPath: isProduction ? "" : "http://localhost:8080/dist/scripts/bundles"
+    },
 
-module.exports = (env, argv) => {
-    const isProduction = argv.mode === "production";
-    return {    
-        entry: "./src/main.jsx",
-        optimization: {
-            minimize: isProduction
-        },    
-        output: {
-            path: path.resolve(__dirname, "../admin/personaBar/scripts/bundles/"),
-            filename: "bundle-en.js",
-            publicPath: isProduction ? "" : "http://localhost:8080/dist/scripts/bundles"
-        },
-        devServer: {
-            allowedHosts: "all"
-        },        
-        resolve: {
-            extensions: ["*", ".js", ".json", ".jsx"],
-            modules: [
-                path.resolve('./src'),           // Look in src first
-                path.resolve('./node_modules')  // Try local node_modules
-            ]
-        },    
-
-        module: {
-            rules: [
-                { 
-                    test: /\.(js|jsx)$/, 
-                    exclude: /node_modules/, 
-                    enforce: "pre",
-                    loader: "eslint-loader",
+    resolve: {
+        extensions: [".js", ".json", ".jsx"],
+        modules: [
+            path.resolve('./src'),           // Look in src first
+            path.resolve('./node_modules')  // Try local node_modules
+        ]
+    },    
+    module: {
+        rules: [
+            { 
+                test: /\.(js|jsx)$/, 
+                exclude: /node_modules/, 
+                enforce: "pre",
+                use: [
+                    'eslint-loader'
+                 ]
+            },
+            { 
+                test: /\.less$/, 
+                use: [{
+                    loader: 'style-loader'  // creates style nodes from JS strings
+                }, {
+                    loader: 'css-loader'    // translates CSS into CommonJS
+                }, {
+                    loader: 'less-loader'   // compiles Less to CSS
+                }] 
+            },
+            { 
+                test: /\.(js|jsx)$/, 
+                exclude: /node_modules/, 
+                use: {
+                    loader: 'babel-loader',
                     options: {
-                        fix: true,
-                      },                    
-                },
-                { 
-                    test: /\.less$/, 
-                    use: [{
-                        loader: 'style-loader'  // creates style nodes from JS strings
-                    }, {
-                        loader: 'css-loader',    // translates CSS into CommonJS
-                        options: { modules: "global" }
-                    }, {
-                        loader: 'less-loader'   // compiles Less to CSS
-                    }] 
-                },
-                { 
-                    test: /\.(js|jsx)$/, 
-                    exclude: /node_modules/, 
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env','@babel/preset-react']
-                        }
+                        presets: ['@babel/preset-env','@babel/preset-react']
                     }
-                },
-                { 
-                    test: /\.(ttf|woff)$/, 
-                    use: {
-                        loader: 'url-loader?limit=8192'
-                    }
-                },
-                { 
-                    test: /\.(gif|png)$/, 
-                    loader: "url-loader?mimetype=image/png" 
                 }
-            ]
-        }, 
-        externals: webpackExternals,
-
-        plugins: isProduction 
-            ? [
-                new webpack.DefinePlugin({
-                    VERSION: JSON.stringify(packageJson.version),
-                    "process.env": {
-                        NODE_ENV: JSON.stringify("production")
-                    }
-                })
-            ] 
-            : [
-                new webpack.DefinePlugin({
-                    VERSION: JSON.stringify(packageJson.version),
-                    "process.env": {
-                        NODE_ENV: JSON.stringify("development")
-                    }                
-                })
-            ],
-        devtool: 'source-map'
-    }
+            },
+            { 
+                test: /\.(ttf|woff)$/, 
+                use: {
+                    loader: 'url-loader?limit=8192'
+                 }
+            },
+            { 
+                test: /\.(gif|png)$/, 
+                loader: "url-loader?mimetype=image/png" 
+            }
+        ]
+    }, 
+    externals: webpackExternals,
+    plugins: isProduction ? [
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(packageJson.version),
+            "process.env": {
+                "NODE_ENV": JSON.stringify("production")
+            }
+        })
+    ] : [
+            new webpack.DefinePlugin({
+                VERSION: JSON.stringify(packageJson.version),
+                "process.env": {
+                    "NODE_ENV": JSON.stringify("development")
+                }                
+            })
+        ],
+    devtool: 'source-map'
 };
