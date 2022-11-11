@@ -1,7 +1,7 @@
 {
   "name": "app-insights",
   "version": "3.2.0",
-  "private": false,
+  "private": true,
   "description": "DNN Azure Application Insights persona bar settings",
   "repository": {
     "type": "git",
