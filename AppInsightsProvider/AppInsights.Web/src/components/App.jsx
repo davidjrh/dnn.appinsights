@@ -132,7 +132,7 @@ class App extends Component {
                     <PersonaBarPageBody>
                         <h1>General settings</h1>
                         <div className="app-insights-performance" />
-                        <p>In order to setup Visual Studio Application Insights monitoring, you must first provision an AppInsights account to obtain the "Instrumentation Key". 
+                        <p>In order to setup Visual Studio Application Insights monitoring, you must first provision an AppInsights account to obtain the Instrumentation Key. 
                             <a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_new">Get started with Application Insights</a>.</p>
 
                         <div className="editor-row">
