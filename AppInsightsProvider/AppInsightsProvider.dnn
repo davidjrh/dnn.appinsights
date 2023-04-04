@@ -67,26 +67,12 @@
           </menu>
         </component>
 
-
         <!-- web.config -->
         <component type="Config">
           <config>
             <configFile>web.config</configFile>
             <install>              
               <configuration>
-                <nodes>
-                  <node path="/configuration/runtime/ab:assemblyBinding"
-                        action="update"
-                        collision="save"
-                        targetpath="/configuration/runtime/ab:assemblyBinding/ab:dependentAssembly[ab:assemblyIdentity/@name='System.Diagnostics.DiagnosticSource'][ab:assemblyIdentity/@publicKeyToken='cc7b13ffcd2ddd51']"
-                        nameSpace="urn:schemas-microsoft-com:asm.v1"
-                        nameSpacePrefix="ab">
-                    <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
-                      <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" />
-                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="4.0.5.0" />
-                    </dependentAssembly>
-                  </node>                  
-                </nodes>
               </configuration>
             </install>
             <uninstall>
@@ -104,6 +90,7 @@
             </uninstall>
           </config>
         </component>
+
         <component type="Assembly">
           <assemblies>
             <basePath>bin</basePath>
@@ -151,10 +138,10 @@
               <path>bin</path>
               <name>Microsoft.AspNet.TelemetryCorrelation.dll</name>
             </assembly>
-            <assembly>
-              <path>bin</path>
-              <name>System.Diagnostics.DiagnosticSource.dll</name>
-            </assembly>
+			<assembly>
+		      <path>bin</path>
+		      <name>System.Diagnostics.DiagnosticSource.dll</name>
+			</assembly>
           </assemblies>
         </component>
       </components>
