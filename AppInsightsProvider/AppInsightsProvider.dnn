@@ -138,10 +138,10 @@
               <path>bin</path>
               <name>Microsoft.AspNet.TelemetryCorrelation.dll</name>
             </assembly>
-			<assembly>
-		      <path>bin</path>
-		      <name>System.Diagnostics.DiagnosticSource.dll</name>
-			</assembly>
+            <assembly>
+              <path>bin</path>
+              <name>System.Diagnostics.DiagnosticSource.dll</name>
+            </assembly>
           </assemblies>
         </component>
       </components>
