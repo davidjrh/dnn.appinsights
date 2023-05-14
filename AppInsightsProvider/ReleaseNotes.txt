@@ -2,8 +2,13 @@
 <p style="margin: 0"><a href="http://davidjrh.intelequia.com" target="_new">David Rodriguez</a><br /><a href="mailto:davidjrh@hotmail.com">davidjrh@hotmail.com</a></p>
 <p style="margin: 0"><strong>About the DNN AppInsights Provider</strong></p>
 
+<p style="margin: 0"><strong>Version 04.00.02</strong></p>
+<p style="margin: 0">Fixed dependency hell problem</p>
+<p style="margin: 0">Fixed load error that ocurred when installing the module on a subpage rather than at root</p>
+
 <p style="margin: 0"><strong>Version 04.00.01</strong></p>
-<p style="margin: 0">Packaging and versioning updates</p>
+<p style="margin: 0">Package and version updates</p>
+<p style="margin: 0">Fixed compile error and added a missing space</p>
 
 <p style="margin: 0"><strong>Version 04.00.00</strong></p>
 <p style="margin: 0">Updated Application Insights SDK to 2.17.0</p>
