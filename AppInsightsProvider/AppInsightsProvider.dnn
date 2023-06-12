@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="04.00.00">
+    <package name="AppInsights" type="Module" version="04.00.02">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
@@ -67,7 +67,6 @@
           </menu>
         </component>
 
-
         <!-- web.config -->
         <component type="Config">
           <config>
@@ -115,6 +114,7 @@
             </uninstall>
           </config>
         </component>
+
         <component type="Assembly">
           <assemblies>
             <basePath>bin</basePath>

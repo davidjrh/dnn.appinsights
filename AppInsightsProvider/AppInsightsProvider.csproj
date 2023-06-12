@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DotNetNuke.Monitoring.AppInsights</RootNamespace>
     <AssemblyName>DotNetNuke.Monitoring.AppInsights</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -223,7 +223,7 @@
   </UsingTask>
   <Target Name="SampleTarget" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
     <SetEnvironmentVariableTask Name="NODE_ENV" Value="production" />
-    <Exec Command="webpack -p" WorkingDirectory="AppInsights.Web" />
+    <Exec Command="webpack --mode=production" WorkingDirectory="AppInsights.Web" />
   </Target>
   <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.17.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.17.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.17.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.17.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
