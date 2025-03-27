@@ -9,7 +9,7 @@ namespace DotNetNuke.Monitoring.AppInsights.Services
         [DataMember(Name = "enabled")]
         public bool Enabled { get; set; }
 
-        [DataMember(Name = "instrumentationKey")]
-        public string InstrumentationKey { get; set; }
+        [DataMember(Name = "connectionString")]
+        public string ConnectionString { get; set; }
     }
 }

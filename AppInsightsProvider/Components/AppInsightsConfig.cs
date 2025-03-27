@@ -41,14 +41,14 @@ namespace DotNetNuke.Monitoring.AppInsights.Components
             // Load the ApplicationInsights.config file
             var config = new ConfigXmlDocument();
             config.Load(configFile);
-            var key = removeSettings ? string.Empty : HostController.Instance.GetString("AppInsights.InstrumentationKey");
+            var key = removeSettings ? string.Empty : HostController.Instance.GetString("AppInsights.ConnectionString");
 
             const string namespaceUri = "http://schemas.microsoft.com/ApplicationInsights/2013/Settings";
             var nsmgr = new XmlNamespaceManager(config.NameTable);
             nsmgr.AddNamespace("nr", namespaceUri);
 
-            // Change instrumentation key
-            var keyNode = config.SelectSingleNode("//nr:InstrumentationKey", nsmgr);
+            // Change connection string
+            var keyNode = config.SelectSingleNode("//nr:ConnectionString", nsmgr);
             if (keyNode != null)
             {
                 keyNode.InnerText = key;
@@ -68,11 +68,11 @@ namespace DotNetNuke.Monitoring.AppInsights.Components
                 throw new Exception($"Couldn't find the Application Insights javascript file on '{configFile}'");
             }
 
-            var key = removeSettings ? string.Empty : HostController.Instance.GetString("AppInsights.InstrumentationKey");
+            var key = removeSettings ? string.Empty : HostController.Instance.GetString("AppInsights.ConnectionString");
             var config = File.ReadAllText(configFile);
-            const string pattern = @"(?<left>.*)(?<instrumentationKey>instrumentationKey:"".*"")(?<right>.*)";
+            const string pattern = @"(?<left>.*)(?<ConnectionString>connectionString: "".*"")(?<right>.*)";
             var rgx = new Regex(pattern);
-            var replacement = $@"$1 instrumentationKey:""{key}"" $3";
+            var replacement = $@"$1 connectionString: ""{key}"" $3";
             var result = rgx.Replace(config, replacement);
             File.WriteAllText(configFile, result);
         }

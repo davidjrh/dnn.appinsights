@@ -9,7 +9,7 @@ const settingsActions = {
                     type: ActionTypes.RETRIEVED_SETTINGS,
                     data: {
                         enabled: data.enabled,
-                        instrumentationKey: data.instrumentationKey,
+                        connectionString: data.connectionString,
                         clientModified: false
                     }
                 });
@@ -44,7 +44,7 @@ const settingsActions = {
                 type: ActionTypes.SETTINGS_CLIENT_MODIFIED,
                 data: {
                     enabled: settings.enabled,
-                    instrumentationKey: settings.instrumentationKey,
+                    connectionString: settings.connectionString,
                     clientModified: true
                 }
             });

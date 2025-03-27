@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Monitoring.AppInsights.Components;
 using DotNetNuke.Services.Log.EventLog;
 using Microsoft.ApplicationInsights;
@@ -12,19 +13,18 @@ namespace DotNetNuke.Monitoring.AppInsights
     public class AppInsightsLoggingProvider: DBLoggingProvider
     {
         private static TelemetryClient _appInsightsClient;
-        private static TelemetryClient AppInsightsClient => _appInsightsClient ?? (_appInsightsClient = new TelemetryClient
-        {
-            InstrumentationKey =
-                TelemetryConfiguration.Active.InstrumentationKey
-        });
-
+        private static TelemetryClient AppInsightsClient => _appInsightsClient ?? (_appInsightsClient = new TelemetryClient(new TelemetryConfiguration()
+            {
+                ConnectionString = HostController.Instance.GetString("AppInsights.ConnectionString")
+            }));
+        
         public override void AddLog(LogInfo logInfo)
         {   
             // Add log to DNN event log         
             base.AddLog(logInfo);
 
             // Add log to Application Insights
-            if (string.IsNullOrEmpty(AppInsightsClient.InstrumentationKey)) return;
+            if (!bool.TryParse(HostController.Instance.GetString("AppInsights.Enabled"), out bool appInsightsEnabled) || !appInsightsEnabled && string.IsNullOrEmpty(AppInsightsClient.TelemetryConfiguration.ConnectionString)) return;
 
             // Repeat base class private check 
             var logTypeConfigInfoByKey = GetLogTypeConfigInfoByKey(logInfo.LogTypeKey, (logInfo.LogPortalID != Null.NullInteger ? logInfo.LogPortalID.ToString() : "*"));
@@ -36,8 +36,7 @@ namespace DotNetNuke.Monitoring.AppInsights
             var message =
                 $"{logInfo.LogTypeKey}{(string.IsNullOrEmpty(logInfo.LogUserName) ? string.Empty : $" Username: {logInfo.LogUserName}")}{(string.IsNullOrEmpty(logInfo.LogProperties.Summary) ? string.Empty : $" Summary: {logInfo.LogProperties.Summary}")}";
             AppInsightsClient.TrackEvent(message, GetProperties(logInfo));
-        }
-
+        }        
 
         private static Dictionary<string, string> GetProperties(LogInfo logInfo)
         {

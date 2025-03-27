@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="AppInsights" type="Module" version="04.00.02">
+    <package name="AppInsights" type="Module" version="04.01.00">
       <friendlyName>DNN AppInsights Module</friendlyName>
       <description>Allows to use a AppInsights monitoring within DNN</description>
       <iconFile>~/DesktopModules/AppInsights/images/AppInsights.png</iconFile>
@@ -14,7 +14,7 @@
       <releaseNotes src="ReleaseNotes.txt"></releaseNotes>
       <azureCompatible>true</azureCompatible>
       <dependencies>
-        <dependency type="CoreVersion">09.08.00</dependency>
+        <dependency type="CoreVersion">09.11.00</dependency>
         <dependency type="ManagedPackage" version="01.00.00">Dnn.PersonaBar.UI</dependency>
       </dependencies>
 
@@ -28,6 +28,11 @@
               <name>03.00.01.SqlDataProvider</name>
               <version>03.00.01</version>
             </script>
+			<script type="Install">
+			    <path>Providers\DataProviders\SqlDataProvider</path>
+			    <name>04.01.00.SqlDataProvider</name>
+			    <version>04.01.00</version>
+			</script>			  
             <script type="UnInstall">
               <path>Providers\DataProviders\SqlDataProvider</path>
               <name>Uninstall.SqlDataProvider</name>
