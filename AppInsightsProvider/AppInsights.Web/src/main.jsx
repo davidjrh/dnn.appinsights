@@ -5,7 +5,7 @@ import configureStore from "./store/configureStore";
 import Root from "./containers/Root";
 import application from "./globals/application";
 
-let store = configureStore({enabled: false, instrumentationKey: ""});
+let store = configureStore({enabled: false, connectionString: ""});
 
 application.dispatch = store.dispatch;
 application.init();

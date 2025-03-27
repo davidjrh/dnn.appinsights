@@ -30,7 +30,7 @@ namespace DotNetNuke.Monitoring.AppInsights.Services
                 var settings = new AppInsightsSettings()
                 {
                     Enabled = HostController.Instance.GetBoolean("AppInsights.Enabled"),
-                    InstrumentationKey = HostController.Instance.GetString("AppInsights.InstrumentationKey")
+                    ConnectionString = HostController.Instance.GetString("AppInsights.ConnectionString")
                 };
                 return Request.CreateResponse(HttpStatusCode.OK, settings);
             }
@@ -57,7 +57,7 @@ namespace DotNetNuke.Monitoring.AppInsights.Services
                 var settings = new Dictionary<string, string>
                 {
                     {"AppInsights.Enabled", appInsightSettings.Enabled.ToString()},
-                    {"AppInsights.InstrumentationKey", appInsightSettings.InstrumentationKey}
+                    {"AppInsights.ConnectionString", appInsightSettings.ConnectionString}
                 };
                 HostController.Instance.Update(settings);
 

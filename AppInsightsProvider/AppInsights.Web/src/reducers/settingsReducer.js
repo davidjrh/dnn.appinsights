@@ -6,13 +6,13 @@ export default function settings(state = {
         case ActionTypes.RETRIEVED_SETTINGS:
             return { ...state,
                 enabled: action.data.enabled,
-                instrumentationKey: action.data.instrumentationKey,
+                connectionString: action.data.connectionString,
                 clientModified: action.data.clientModified
             };
         case ActionTypes.SETTINGS_CLIENT_MODIFIED:
             return { ...state,
                 enabled: action.data.enabled,
-                instrumentationKey: action.data.instrumentationKey,
+                connectionString: action.data.connectionString,
                 clientModified: action.data.clientModified
             };
         case ActionTypes.UPDATED_SETTINGS:

@@ -1,0 +1,7 @@
+/* One-time script to migrate the AppInsights settings in the database */
+UPDATE HostSettings
+SET
+	SettingName = 'AppInsights.ConnectionString',
+	SettingValue = 'InstrumentationKey=' + SettingValue + ';IngestionEndpoint=https://dc.services.visualstudio.com'
+WHERE 
+	SettingName = 'AppInsights.InstrumentationKey'

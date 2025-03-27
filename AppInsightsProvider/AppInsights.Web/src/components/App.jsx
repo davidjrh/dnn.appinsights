@@ -18,10 +18,10 @@ class App extends Component {
         this.state = {
             settingsLoaded: false,
             enabled: false,
-            instrumentationKey: "",
+            connectionString: "",
             clientModified: false,
             error: {
-                instrumentationKey: false
+                connectionString: false
             },
             triedToSubmit: false
         };
@@ -33,7 +33,7 @@ class App extends Component {
         if (props.settingsLoaded) {
             this.setState({
                 enabled: props.enabled,
-                instrumentationKey: props.instrumentationKey,
+                connectionString: props.connectionString,
                 clientModified: props.clientModified
             });
             return;
@@ -42,7 +42,7 @@ class App extends Component {
         props.dispatch(SettingsActions.getSettings((data) => {
             this.setState({
                 enabled: data.enabled,
-                instrumentationKey: data.instrumentationKey
+                connectionString: data.connectionString
             });
         }));        
     }
@@ -50,7 +50,7 @@ class App extends Component {
     UNSAFE_componentWillReceiveProps(props) {
         this.setState({
             enabled: props.enabled,
-            instrumentationKey: props.instrumentationKey,
+            connectionString: props.connectionString,
             clientModified: props.clientModified,
             triedToSubmit: false
         });
@@ -62,16 +62,16 @@ class App extends Component {
         if (key === "Enabled") {
             state.enabled = !state.enabled;
         }
-        if (key === "InstrumentationKey") {
-            state.instrumentationKey = event.target.value;
+        if (key === "ConnectionString") {
+            state.connectionString = event.target.value;
         }
 
-        let pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;            
-        state.error["instrumentationKey"] = state.enabled && !pattern.test(state.instrumentationKey);
+        //let pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;            
+        //state.error["connectionString"] = state.enabled && !pattern.test(state.connectionString);
 
         this.setState({
             enabled: state.enabled,
-            instrumentationKey: state.instrumentationKey,
+            connectionString: state.connectionString,
             error: state.error,
             clientModified: true,
             triedToSubmit: false
@@ -79,7 +79,7 @@ class App extends Component {
 
         props.dispatch(SettingsActions.settingsClientModified({
             enabled: state.enabled,
-            instrumentationKey: state.instrumentationKey            
+            connectionString: state.connectionString            
         }));
     }
 
@@ -89,10 +89,10 @@ class App extends Component {
             props.dispatch(SettingsActions.getSettings((data) => {
                 this.setState({
                     enabled: data.enabled,
-                    instrumentationKey: data.instrumentationKey,
+                    connectionString: data.connectionString,
                     clientModified: false,
                     error: {
-                        instrumentationKey: false
+                        connectionString: false
                     }               
                 });
             }));
@@ -103,7 +103,7 @@ class App extends Component {
         event.preventDefault();
         const {props, state} = this;
 
-        if (state.error.instrumentationKey)
+        if (state.error.connectionString)
             return;
 
         this.setState({
@@ -112,7 +112,7 @@ class App extends Component {
 
         props.dispatch(SettingsActions.updateSettings({
             enabled: state.enabled,
-            instrumentationKey: state.instrumentationKey
+            connectionString: state.connectionString
         }, () => {
             util.utilities.notify(resx.get("SettingsUpdateSuccess"));
             this.setState({
@@ -132,7 +132,7 @@ class App extends Component {
                     <PersonaBarPageBody>
                         <h1>General settings</h1>
                         <div className="app-insights-performance" />
-                        <p>In order to setup Visual Studio Application Insights monitoring, you must first provision an AppInsights account to obtain the Instrumentation Key. <a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_new">Get started with Application Insights</a>.</p>
+                        <p>In order to setup Visual Studio Application Insights monitoring, you must first provision an AppInsights account to obtain the Connection String. <a href="https://azure.microsoft.com/en-us/services/application-insights/" target="_new">Get started with Application Insights</a>.</p>
 
                         <div className="editor-row">
                             <Label label={resx.get("plEnabled") } style={{ fontWeight: "bold" }}/>
@@ -145,12 +145,12 @@ class App extends Component {
                         <div className="editor-row">
                             <SingleLineInputWithError
                                 withLabel={true}
-                                label={resx.get("plInstrumentationKey") }
+                                label={resx.get("plConnectionString") }
                                 enabled={state.enabled}
-                                error={this.state.error.instrumentationKey}
-                                errorMessage={resx.get("InstrumentationKeyRequired")}
-                                value={state.instrumentationKey || ""}
-                                onChange={this.onSettingChange.bind(this, "InstrumentationKey") } />
+                                error={this.state.error.connectionString}
+                                errorMessage={resx.get("ConnectionStringRequired")}
+                                value={state.connectionString || ""}
+                                onChange={this.onSettingChange.bind(this, "ConnectionString") } />
                         </div>
 
                         <div className="buttons-box">
@@ -161,7 +161,7 @@ class App extends Component {
                                 {resx.get("Cancel") }
                             </Button>
                             <Button
-                                disabled={!state.clientModified || state.error.instrumentationKey}
+                                disabled={!state.clientModified || state.error.connectionString}
                                 type="primary"
                                 onClick={this.onUpdate.bind(this) }>
                                 {resx.get("Update")}
@@ -177,14 +177,14 @@ class App extends Component {
 App.PropTypes = {
     dispatch: PropTypes.func.isRequired,
     enabled: PropTypes.bool,
-    instrumentationKey: PropTypes.string,
+    connectionString: PropTypes.string,
     clientModified: PropTypes.bool
 };
 
 function mapStateToProps(state) {
     return {
         enabled: state.enabled,
-        instrumentationKey: state.instrumentationKey,
+        connectionString: state.connectionString,
         clientModified: state.clientModified
     };
 }
