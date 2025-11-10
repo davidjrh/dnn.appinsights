@@ -87,7 +87,7 @@
                         nameSpacePrefix="ab">
                     <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
                       <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" />
-                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="5.0.0.0" />
+                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="6.0.0.2" />
                     </dependentAssembly>
                   </node>
                   <node path="/configuration/runtime/ab:assemblyBinding"
@@ -98,7 +98,7 @@
                         nameSpacePrefix="ab">
                     <dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1">
                       <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" />
-                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="5.0.0.0" />
+                      <bindingRedirect oldVersion="0.0.0.0-32767.32767.32767.32767" newVersion="6.0.3.0" />
                     </dependentAssembly>
                   </node>
                 </nodes>
@@ -166,10 +166,6 @@
             <assembly>
               <path>bin</path>
               <name>Microsoft.AspNet.TelemetryCorrelation.dll</name>
-            </assembly>
-            <assembly>
-              <path>bin</path>
-              <name>System.Diagnostics.DiagnosticSource.dll</name>
             </assembly>
 
             <assembly>
