@@ -2,6 +2,9 @@
 <p style="margin: 0"><a href="http://davidjrh.intelequia.com" target="_new">David Rodriguez</a><br /><a href="mailto:davidjrh@hotmail.com">davidjrh@hotmail.com</a></p>
 <p style="margin: 0"><strong>About the DNN AppInsights Provider</strong></p>
 
+<p style="margin: 0"><strong>Version 04.02.00</strong></p>
+<p style="margin: 0">Fixed compatibility issue with 10.x versions not showing the persona bar settings</p>
+
 <p style="margin: 0"><strong>Version 04.01.00</strong></p>
 <p style="margin: 0">Migrated Instrumentation Key setting to Connection String (deprecated on March 31st, 2025)</p>
 
