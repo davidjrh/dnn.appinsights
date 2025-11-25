@@ -7,8 +7,11 @@ This module is a DNN Platorm extension to integrate Microsoft Application Insigh
 1. Provision a new Application Insights service following the guide at [https://azure.microsoft.com/en-us/documentation/articles/app-insights-overview/](https://learn.microsoft.com/en-us/azure/azure-monitor/app/create-workspace-resource). 
 2. Once provisioned, copy the "Connection String" available on the resource Essentials properties 
 <img width="623" height="220" alt="image" src="https://github.com/user-attachments/assets/b3b68f6a-b8fe-416d-bd2f-b2833fce1331" />
+
 3. Now from the Releases section https://github.com/davidjrh/dnn.appinsights/releases, download the latest module package version ending on "...Install.zip" (the Source.zip package contains the source code that is not needed for production websites). 
+
 4. Install the extension package in your DNN instance from the "Settings > Extensions" persona bar menu like any other module
+
 5. Once installed, a new menu under "Settings > Application Insights" will allow you to paste the connection string obtained on step 2. After appying the changes, you will start receiving data on AppInsights after a few minutes.
 ![alt text](https://intelequia.blob.core.windows.net/images/AppInsights_InstrumentationKey3.png "Instrumentation Key")
 
